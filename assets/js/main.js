@@ -363,11 +363,9 @@
 
     //
 
-    jQuery(document).on('ready',function(){
+    jQuery('body').on('DOMSubtreeModified',function(){
         jQuery("div[data-color]").each(function(index, el) {
-        jQuery(this).addClass('sdf')
         let atvalue =  jQuery(this).attr('data-color');
-        console.log('#' + atvalue)
         jQuery(this).css({
             'background' : '#' + atvalue
         });

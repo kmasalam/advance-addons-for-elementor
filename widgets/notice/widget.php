@@ -71,6 +71,7 @@ class Notice extends Base {
 				'options' => [
 					'style1' => __( 'style 1', 'advanced-addons-elementor' ),
 					'style2' => __( 'Style 2', 'advanced-addons-elementor' ),
+					'style3' => __( 'Style 3', 'advanced-addons-elementor' ),
 					
 				],
 			]
@@ -100,7 +101,7 @@ class Notice extends Base {
 				'default'     => __( 'Well done!', 'advanced-addons-elementor' ),
 				'label_block' => true,
 				'condition'   => [
-                    'style' => [ 'style1','style2' ],
+                    'style' => [ 'style1','style2','style3' ],
                 ],
 			]
 		);
@@ -113,7 +114,7 @@ class Notice extends Base {
 				'placeholder' => __( 'Type Content here', 'advanced-addons-elementor' ),
 				'label_block' => true,
 				'condition'   => [
-                    'style' => [ 'style1','style2' ],
+                    'style' => [ 'style1','style2','style3' ],
                 ],
                 
 			]
@@ -143,10 +144,74 @@ class Notice extends Base {
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
                 'selectors'  => [
-                    '{{WRAPPER}} .advanced_addons_inline_notice type-1' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .advanced_addons_inline_notice' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
+        $this->add_responsive_control(
+            'notice_padding',
+            [
+                'label'      => __( 'Margin', 'advanced-addons-elementor'),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors'  => [
+                    '{{WRAPPER}} .advanced_addons_inline_notice' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->add_group_control(
+			Group_Control_Typography:: get_type(),
+			[
+				'name'     => 'content_typography',
+				'label'    => __( 'Content Typography', 'advanced-addons-elementor' ),
+				'selector' => '{{WRAPPER}} .advanced_addons_inline_notice .advanced_addons_inline_body',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+			]
+		);
+        $this->add_control(
+			'title_color',
+			[
+				'label'     => __( 'Title Color', 'advanced-addons-elementor' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}  h3' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_control(
+			'section_color',
+			[
+				'label'  => __( 'Section Background', 'advanced-addons-elementor' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}  .content-bg' => 'background-color: {{VALUE}} !important',
+				],
+			]
+		);
+		 $this->add_control(
+			'content_color',
+			[
+				'label'     => __( 'Content Color', 'advanced-addons-elementor' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}  .advanced_addons_inline_notice .advanced_addons_inline_body' => 'color: {{VALUE}}',
+				],
+			]
+		);
+		$this->add_control(
+			'bg_color',
+			[
+				'label'     => __( 'Head Background Color', 'advanced-addons-elementor' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}  h3' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} h3 i' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}}  .advanced_addons_inline_notice ' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+
 
         $this->end_controls_section();
     }
@@ -176,7 +241,7 @@ class Notice extends Base {
 				</div> 
             <?php endif;?>
             <?php if($settings['style'] === 'style2'):?>
-            	 <div  class="pt-60 pb-60">
+            	 <div data-color="106aea"   class="pt-60 pb-60 content-bg">
             	 	<?php 
 					if ( ! empty( $settings['alert_type'] ) ) {
 								$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_inline_notice type-1 header-gap mb-60 notice_' . $settings['alert_type'] );
@@ -188,6 +253,24 @@ class Notice extends Base {
 							<?php echo esc_html($settings['title']);?>
 						</h3>
 						<div class="advanced_addons_inline_body bg-white rounded-0">
+							<?php echo esc_html($settings['desc']);?>
+						</div>
+				</div> 
+            	<div/>
+            <?php endif;?>
+            <?php if($settings['style'] === 'style3'):?>
+            	 <div data-color="ff7293"   class="pt-60 pb-60 content-bg">
+            	 	<?php 
+					if ( ! empty( $settings['alert_type'] ) ) {
+								$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_inline_notice  rounded-0 bg-white type-2 mb-60 notice_' . $settings['alert_type'] );
+							}
+                ?>
+            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+					<h3>
+							<i class="fa fa-check"></i>
+							<?php echo esc_html($settings['title']);?>
+						</h3>
+						<div class="advanced_addons_inline_body  rounded-0">
 							<?php echo esc_html($settings['desc']);?>
 						</div>
 				</div> 
@@ -214,13 +297,27 @@ public function _content_template() {
 		</div> 
          <# } #>
         <# if (settings.style === 'style2') { #>
-        <div  class="pt-60 pb-60">
+        <div data-color="106aea"  class="pt-60 pb-60 content-bg">
         	<div class="advanced_addons_inline_notice  type-1 header-gap mb-60 notice_{{ settings.alert_type }}">
 					<h3>
 						<i class="fa fa-check"></i>
 						{{ settings.title }}
 					</h3>
 					<div class="advanced_addons_inline_body bg-white">
+						sdsd
+						{{ settings.desc }}
+					</div>
+			</div> 
+        </div>
+       <# } #>
+       <# if (settings.style === 'style3') { #>
+        <div data-color="ff7293"  class="pt-60 pb-60 content-bg">
+        	<div class="advanced_addons_inline_notice notice_{{ settings.alert_type }} rounded-0 bg-white type-2 mb-60 ">
+					<h3>
+						<i class="fa fa-check"></i>
+						{{ settings.title }}
+					</h3>
+					<div class="advanced_addons_inline_body  rounded-0">
 						sdsd
 						{{ settings.desc }}
 					</div>
