@@ -1,0 +1,21 @@
+.single-testi img {
+  border-radius: 50% !important;
+  max-width: 100%;
+  height: auto;
+}
+
+.advanced_addons_btn {
+  line-height: 20px;
+}
+.advanced_addons_button_group a {
+  text-align: center;
+  text-decoration: none !important;
+}
+.advanced_addons_btn.advanced_addons_btn_bordered {
+  background: transparent;
+  border-color: #2f2f2f;
+  padding: 20px;
+}
+.advanced_addons_btn.advanced_addons_btn_solid {
+  padding: 20px;
+}
