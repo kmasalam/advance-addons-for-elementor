@@ -146,18 +146,105 @@ class Quotes extends Base {
 				]
 			);
 
+	
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+            '_section_style_title',
+            [
+                'label' => __( 'Title Style', 'advanced-addons-elementor' ),
+                'tab'   => Controls_Manager::TAB_STYLE,
+            ]
+		);
+
+
 			$this->add_group_control(
 				Group_Control_Typography:: get_type(),
 				[
-					'name'     => 'content_typography',
+					'name'     => 'title_typography',
 					'label'    => __( 'Typography', 'advanced-addons-elementor' ),
-					'selector' => '{{WRAPPER}} .advanced_addons_quotes_card',
+					'selector' => '{{WRAPPER}} .q-title',
 					'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+				]
+			);
+
+			$this->add_control(
+				'text_color',
+				[
+					'label'     => __( 'Title Color', 'advanced-addons-elementor' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => [
+						'{{WRAPPER}} .q-title' => 'color: {{VALUE}} !important',
+					],
+				]
+			);
+
+	
+			$this->end_controls_section();
+
+			$this->start_controls_section(
+				'_section_style_desc',
+				[
+					'label' => __( 'Content Style', 'advanced-addons-elementor' ),
+					'tab'   => Controls_Manager::TAB_STYLE,
+				]
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography:: get_type(),
+				[
+					'name'     => 'desc_typography',
+					'label'    => __( 'Typography', 'advanced-addons-elementor' ),
+					'selector' => '{{WRAPPER}} .q-desc',
+					'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+				]
+			);
+
+			$this->add_control(
+				'desc_color',
+				[
+					'label'     => __( 'Content Color', 'advanced-addons-elementor' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => [
+						'{{WRAPPER}} .q-desc' => 'color: {{VALUE}} !important',
+					],
 				]
 			);
 
 	
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'_section_style_auth',
+			[
+				'label' => __( 'Author Style', 'advanced-addons-elementor' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography:: get_type(),
+			[
+				'name'     => 'auth_typography',
+				'label'    => __( 'Typography', 'advanced-addons-elementor' ),
+				'selector' => '{{WRAPPER}} .auth',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
+			]
+		);
+
+		$this->add_control(
+			'auth_color',
+			[
+				'label'     => __( 'Author Color', 'advanced-addons-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .auth' => 'color: {{VALUE}} !important',
+				],
+			]
+		);
+
+
+	$this->end_controls_section();
 
         
     }
@@ -168,10 +255,10 @@ class Quotes extends Base {
             <?php if($settings['style'] === 'style1'):?>
                 <div class="advanced_addons_quotes_card type-1 bg-2f2f2f">
 					<blockquote>
-						<h5 class="text-white font-weight-normal">
+						<h5 class="text-white font-weight-normal q-title">
 							<?php echo esc_html($settings['title']);?>
 						</h5>
-						<p>
+						<p class="q-desc">
 							<?php echo esc_html($settings['desc']);?>
 						</p>
 					</blockquote>
@@ -180,13 +267,13 @@ class Quotes extends Base {
             <?php if($settings['style'] === 'style2'):?>
                 <div class="advanced_addons_quotes_card type-2 bg-white">
 						<blockquote>
-							<h5 class="text-2f2f2f font-weight-normal fz-26">
+							<h5 class="text-2f2f2f font-weight-normal fz-26 q-title">
 								<?php echo esc_html($settings['title']);?> 
 							</h5>
-							<p>
+							<p class="q-desc">
 								<?php echo esc_html($settings['desc']);?>
 							</p>
-							<span>
+							<span class="auth">
 								<?php echo esc_html($settings['author']);?>
 							</span>
 						</blockquote>
@@ -203,10 +290,10 @@ class Quotes extends Base {
        <# if (settings.style === 'style1') { #>
         <div class="advanced_addons_quotes_card type-1 bg-2f2f2f">
 					<blockquote>
-						<h5 class="text-white font-weight-normal">
+						<h5 class="text-white font-weight-normal q-title">
 							{{settings.title}}
 						</h5>
-						<p>
+						<p class="q-desc">
 							{{settings.desc}}
 						</p>
 					</blockquote>
@@ -215,13 +302,13 @@ class Quotes extends Base {
         <# if (settings.style === 'style2') { #>
         <div class="advanced_addons_quotes_card type-2 bg-white">
 						<blockquote>
-							<h5 class="text-2f2f2f font-weight-normal fz-26">
+							<h5 class="text-2f2f2f font-weight-normal fz-26 q-title">
 								{{settings.title}}
 							</h5>
-							<p>
+							<p class="q-desc">
 								{{settings.desc}}
 							</p>
-							<span>
+							<span class="auth">
 								{{settings.author}}
 							</span>
 						</blockquote>

@@ -72,6 +72,8 @@ class Notice extends Base {
 					'style1' => __( 'style 1', 'advanced-addons-elementor' ),
 					'style2' => __( 'Style 2', 'advanced-addons-elementor' ),
 					'style3' => __( 'Style 3', 'advanced-addons-elementor' ),
+					'style4' => __( 'Style 4', 'advanced-addons-elementor' ),
+					'style5' => __( 'Style 5', 'advanced-addons-elementor' ),
 					
 				],
 			]
@@ -101,7 +103,7 @@ class Notice extends Base {
 				'default'     => __( 'Well done!', 'advanced-addons-elementor' ),
 				'label_block' => true,
 				'condition'   => [
-                    'style' => [ 'style1','style2','style3' ],
+                    'style' => [ 'style1','style2','style3','style4','style5' ],
                 ],
 			]
 		);
@@ -114,7 +116,7 @@ class Notice extends Base {
 				'placeholder' => __( 'Type Content here', 'advanced-addons-elementor' ),
 				'label_block' => true,
 				'condition'   => [
-                    'style' => [ 'style1','style2','style3' ],
+                     'style' => [ 'style1','style2','style3','style4','style5' ],
                 ],
                 
 			]
@@ -276,6 +278,43 @@ class Notice extends Base {
 				</div> 
             	<div/>
             <?php endif;?>
+             <?php if($settings['style'] === 'style4'):?>
+            	 <div data-color="867fec"   class="pt-60 pb-60 content-bg">
+            	 	<?php 
+					if ( ! empty( $settings['alert_type'] ) ) {
+								$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_inline_notice dd  rounded text-center bg-white type-2 mb-60 notice_' . $settings['alert_type'] );
+							}
+                ?>
+            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+					<h3>
+							<i class="fa fa-check"></i>
+							<?php echo esc_html($settings['title']);?>
+						</h3>
+						<div class="advanced_addons_inline_body  rounded-0">
+							<?php echo esc_html($settings['desc']);?>
+						</div>
+				</div> 
+            	<div/>
+            <?php endif;?>
+             <?php if($settings['style'] === 'style5'):?>
+            	 <div data-color="867fec"   class="pt-60 pb-60 content-bg">
+            	 	<?php 
+					if ( ! empty( $settings['alert_type'] ) ) {
+								$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_inline_notice  rounded text-center bg-white type-3 mb-60 notice_' . $settings['alert_type'] );
+							}
+                ?>
+            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+					<h3>
+							<i class="fa fa-check"></i>
+							<?php echo esc_html($settings['title']);?>
+						</h3>
+						<div class="advanced_addons_inline_body  rounded-0">
+							<?php echo esc_html($settings['desc']);?>
+						</div>
+				</div> 
+            	<div/>
+            <?php endif;?>
+             
         <?php
     }
 
@@ -318,7 +357,32 @@ public function _content_template() {
 						{{ settings.title }}
 					</h3>
 					<div class="advanced_addons_inline_body  rounded-0">
-						sdsd
+						{{ settings.desc }}
+					</div>
+			</div> 
+        </div>
+       <# } #>
+       <# if (settings.style === 'style4') { #>
+        <div data-color="867fec"  class="pt-60 pb-60 content-bg">
+        	<div class="advanced_addons_inline_notice notice_{{ settings.alert_type }} rounded text-center bg-white type-2 mb-60">
+					<h3>
+						<i class="fa fa-check"></i>
+						{{ settings.title }}
+					</h3>
+					<div class="advanced_addons_inline_body  rounded-0">
+						{{ settings.desc }}
+					</div>
+			</div> 
+        </div>
+       <# } #>
+       <# if (settings.style === 'style5') { #>
+        <div data-color="7af0db"  class="pt-60 pb-60 content-bg">
+        	<div class="advanced_addons_inline_notice notice_{{ settings.alert_type }} rounded text-center bg-white type-3 mb-60">
+					<h3>
+						<i class="fa fa-check"></i>
+						{{ settings.title }}
+					</h3>
+					<div class="advanced_addons_inline_body  rounded-0">
 						{{ settings.desc }}
 					</div>
 			</div> 

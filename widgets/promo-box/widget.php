@@ -59,7 +59,24 @@ class Promo_Box extends Base {
                 'tab'   => Controls_Manager::TAB_CONTENT,
             ]
         );
-
+        // Visual Style
+        $this->add_control(
+            'style',
+            [
+                'label'   => __( 'Visual Style', 'advanced-addons-elementor' ),
+                'type'    => Controls_Manager::SELECT,
+                'default' => 'style1',
+                'options' => [
+                    'style1' => __( 'style 1', 'advanced-addons-elementor' ),
+                    'style2' => __( 'Style 2', 'advanced-addons-elementor' ),
+                    'style3' => __( 'Style 3', 'advanced-addons-elementor' ),
+                    'style4' => __( 'Style 4', 'advanced-addons-elementor' ),
+                    'style5' => __( 'Style 5', 'advanced-addons-elementor' ),
+                    
+                ],
+            ]
+        );
+        // Title Here
         $this->add_control(
             'title',
             [
@@ -68,9 +85,12 @@ class Promo_Box extends Base {
                 'type'        => Controls_Manager::TEXT,
                 'default'     => __( 'New offer for this summer', 'advanced-addons-elementor' ),
                 'placeholder' => __( 'Type Promo Box Title', 'advanced-addons-elementor' ),
+                'condition'   => [
+                    'style' => [ 'style1','style2','style3','style4','style5' ],
+                ],
             ]
         );
-
+        // Description
         $this->add_control(
             'description',
             [
@@ -78,7 +98,10 @@ class Promo_Box extends Base {
                 'type'        => Controls_Manager::TEXTAREA,
                 'default'     => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 'advanced-addons-elementor' ),
                 'placeholder' => __( 'Type Promo box description', 'advanced-addons-elementor' ),
-                'rows'        => 5
+                'rows'        => 5,
+                'condition'   => [
+                    'style' => [ 'style1','style2','style3'],
+                ],
             ]
         );
 
@@ -104,11 +127,48 @@ class Promo_Box extends Base {
         );
 
         $this->add_control(
+            'button2_text',
+            [
+                'label'       => __( 'Button 2 Text', 'advanced-addons-elementor' ),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => __( 'Purchase now', 'advanced-addons-elementor' ),
+                'placeholder' => __( 'Type button text here', 'advanced-addons-elementor' ),
+                'label_block' => true,
+                'condition'   => [
+                    'style' => [ 'style3'],
+                ],
+            ]
+        );
+
+        $this->add_control(
             'link',
             [
                 'label'       => __( 'Link', 'advanced-addons-elementor' ),
                 'type'        => Controls_Manager::URL,
                 'placeholder' => __( 'https://example.com/', 'advanced-addons-elementor' ),
+                'show_external' => true,
+                'default' => [
+                    'url' => 'https://example.com/',
+                    'is_external' => true,
+                    'nofollow' => true,
+                ],
+            ]
+        );
+        $this->add_control(
+            'link2',
+            [
+                'label'       => __( 'Link2', 'advanced-addons-elementor' ),
+                'type'        => Controls_Manager::URL,
+                'placeholder' => __( 'https://example.com/', 'advanced-addons-elementor' ),
+                'show_external' => true,
+                'default' => [
+                    'url' => 'https://example.com/',
+                    'is_external' => true,
+                    'nofollow' => true,
+                ],
+                'condition'   => [
+                    'style' => [ 'style3'],
+                ],
             ]
         );
 
@@ -274,32 +334,89 @@ class Promo_Box extends Base {
 
 	protected function render() {
         $settings = $this->get_settings_for_display();
-        $this->add_render_attribute( 'link', 'class', 'ad-btn' );
-        $this->add_render_attribute( 'link', 'href', esc_url( $settings['link']['url'] ) );
-        if ( ! empty( $settings['link']['is_external'] ) ) {
-            $this->add_render_attribute( 'link', 'target', '_blank' );
-        }
-        if ( ! empty( $settings['link']['nofollow'] ) ) {
-            $this->add_render_attribute( 'link', 'rel', 'nofollow' );
-        }
+        $target = $settings['link']['is_external'] ? ' target="_blank"' : '';
+        $nofollow = $settings['link']['nofollow'] ? ' rel="nofollow"' : '';
+
         $this->add_inline_editing_attributes( 'text', 'none' );
         ?>
-
-            <div class="advanced_addons_promo_box type-1 d-flex align-items-center justify-content-between">
-				<div>
-					<h5 class="text-2f2f2f  fz-24 font-weight-normal text-uppercase"><?php echo esc_html( $settings['title'] ); ?></h5>
-					<p class="mb-0">
+        <?php if($settings['style'] === 'style1'):?>
+                <div class="advanced_addons_promo_box type-1 d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="text-2f2f2f  fz-24 font-weight-normal text-uppercase"><?php echo esc_html( $settings['title'] ); ?></h5>
+                    <p class="mb-0">
                          <?php echo wp_kses_data( $settings['description'] ); ?>
-					</p>
-				</div>
-				<div>
-                    <a <?php echo $this->get_render_attribute_string( 'link' ); ?>>
-                        <button class="advanced_addons_btn advanced_addons_btn_solid btn_default">
-                            <?php echo esc_html( $settings['button_text'] ); ?>
-                        </button>
-                    </a>
-				</div>
-			</div>
+                    </p>
+                </div>
+                <div>
+                        <?php
+                            echo '<a href="' . $settings['link']['url'] . '"' . $target . $nofollow . ' class="advanced_addons_btn advanced_addons_btn_solid btn_default"> ' .esc_html( $settings['button_text'] ) . '</a>';
+                        ?>
+                </div>
+            </div>
+            <?php endif;?>
+            <?php if($settings['style'] === 'style2'):?>
+                <div class="advanced_addons_promo_box type-1 radius-style d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="text-2f2f2f  fz-24 font-weight-normal text-capitalize">
+                           <?php echo esc_html( $settings['title'] ); ?>
+                            </h5>
+                            <p class="mb-0">
+                                 <?php echo wp_kses_data( $settings['description'] ); ?>
+                            </p>
+                        </div>
+                        <div>
+                             <?php
+                            echo '<a href="' . $settings['link']['url'] . '"' . $target . $nofollow . ' class="advanced_addons_btn advanced_addons_btn_solid btn_default"> ' .esc_html( $settings['button_text'] ) . '</a>';
+                        ?>
+                        </div>
+                    </div>
+            <?php endif;?>
+             <?php if($settings['style'] === 'style3'):?>
+                <div class="pt-100 pb-100  position-relative advanced_addons_callto_action_area type-2" >
+                    <div class="overlay position-absolute"></div>
+                    <div class="advanced_addons_callto_action type-2 text-center position-relative ">
+                        <h4 class="text-white">
+                             <?php echo esc_html( $settings['title'] ); ?>
+                        </h4>
+                        <p class="text-white">
+                            <?php echo wp_kses_data( $settings['description'] ); ?>
+                        </p>
+                        <div>
+                            <?php
+                            echo '<a href="' . $settings['link']['url'] . '"' . $target . $nofollow . ' class="advanced_addons_btn advanced_addons_btn_bordered btn_default btn_pill"> ' .esc_html( $settings['button_text'] ) . '</a>';
+                        ?>
+                        <?php
+                            echo '<a href="' . $settings['link2']['url'] . '"' . $target . $nofollow . '  class="advanced_addons_btn advanced_addons_btn_solid btn_default btn_pill"> ' .esc_html( $settings['button_text'] ) . '</a>';
+                        ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif;?>
+            <?php if($settings['style'] === 'style4'):?>
+                <div>
+                    <div class="advanced_addons_callto_action type-2 promo-box text-left ">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-md-7">
+                                <h4 > 
+                                    <?php echo esc_html( $settings['title'] ); ?>
+                                </h4>
+                                    <p >
+                                       <?php echo wp_kses_data( $settings['description'] ); ?>
+                                    </p>
+                                    <div>
+                                         <?php
+                                    echo '<a href="' . $settings['link']['url'] . '"' . $target . $nofollow . ' class="advanced_addons_btn advanced_addons_btn_solid btn_default btn_pill"> ' .esc_html( $settings['button_text'] ) . '</a>';
+                                ?>
+                                    </div>
+                            </div>
+                            <div class="col-md-5">
+                                <img src="assets/images/promo-box/promo-pc.jpg" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif;?>
+
         <?php
     }
 
@@ -308,22 +425,61 @@ class Promo_Box extends Base {
         <#
 
         #>
-       <div class="advanced_addons_promo_box type-1 d-flex align-items-center justify-content-between">
-			<div>
-				<h5 class="text-2f2f2f  fz-24 font-weight-normal text-uppercase">{{ settings.title }}</h5>
-				<p class="mb-0">
+        <# if (settings.style === 'style1') { #>
+         <div class="advanced_addons_promo_box type-1 d-flex align-items-center justify-content-between">
+            <div>
+                <h5 class="text-2f2f2f  fz-24 font-weight-normal text-uppercase">{{ settings.title }}</h5>
+                <p class="mb-0">
                   {{ settings.description }}
-				</p>
-			</div>
-			<div>
+                </p>
+            </div>
+            <div>
                 <a href="{{{ settings.link.url }}}">
                     <button class="advanced_addons_btn advanced_addons_btn_solid btn_default">
                     {{ settings.button_text }}
                     </button>
                 </a>
-			</div>
-		</div>
-            
+            </div>
+        </div> 
+         <# } #> 
+         <# if (settings.style === 'style2') { #>
+         <div class="advanced_addons_promo_box type-1 radius-style d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="text-2f2f2f  fz-24 font-weight-normal text-capitalize">
+                           {{ settings.title }}
+                            </h5>
+                            <p class="mb-0">
+                                {{ settings.description }}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="{{{ settings.link.url }}}" class="advanced_addons_btn advanced_addons_btn_solid btn_default">
+                                 {{ settings.button_text }}
+                            </a>
+                        </div>
+                    </div>
+         <# } #> 
+         <# if (settings.style === 'style3') { #>
+         <div class="pt-100 pb-100 position-relative advanced_addons_callto_action_area type-2" >
+            <div class="overlay position-absolute"></div>
+                    <div class="advanced_addons_callto_action type-2 text-center position-relative ">
+                        <h4 class="text-white">
+                             {{ settings.title }}
+                        </h4>
+                        <p class="text-white">
+                           {{ settings.description }}
+                        </p>
+                        <div>
+                            <a href="{{{ settings.link.url }}}" class="advanced_addons_btn advanced_addons_btn_bordered btn_default btn_pill">
+                                  {{ settings.button_text }}
+                            </a>
+                            <a href="{{{ settings.link2.url }}}" class="advanced_addons_btn advanced_addons_btn_solid btn_default btn_pill">
+                                {{ settings.button_text }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+         <# } #> 
         <?php
     }
 }
