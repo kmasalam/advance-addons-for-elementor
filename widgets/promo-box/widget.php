@@ -100,7 +100,7 @@ class Promo_Box extends Base {
                 'placeholder' => __( 'Type Promo box description', 'advanced-addons-elementor' ),
                 'rows'        => 5,
                 'condition'   => [
-                    'style' => [ 'style1','style2','style3'],
+                    'style' => [ 'style1','style2','style3','style4'],
                 ],
             ]
         );
@@ -171,6 +171,32 @@ class Promo_Box extends Base {
                 ],
             ]
         );
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            '_section_image',
+            [
+                'label' => __( 'Image', 'advanced-addons-elementor' ),
+                'tab'   => Controls_Manager::TAB_CONTENT,
+            ]
+        );
+        // Image insert
+        $this->add_control(
+            'uploaded_image',
+            [
+                'label' => esc_html__( 'Choose Image', 'advanced-addons-elementor' ),
+                'type' => Controls_Manager::MEDIA,
+                'dynamic' => [
+                    'active' => true,
+                ],
+                'default' => [
+                    'url' => Utils::get_placeholder_image_src(),
+                ],
+                'condition'   => [
+                    'style' => [ 'style4'],
+                ],
+            ]
+        );
 
         $this->end_controls_section();
     }
@@ -226,7 +252,7 @@ class Promo_Box extends Base {
             [
                 'name'     => 'content_typography',
                 'label'    => __( 'Typography', 'advanced-addons-elementor' ),
-                'selector' => '{{WRAPPER}} .advanced_addons_promo_box h5',
+                'selector' => '{{WRAPPER}} .advanced_addons_promo_box h5,{{WRAPPER}} .advanced_addons_callto_action h4',
                 'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
             ]
         );
@@ -237,7 +263,7 @@ class Promo_Box extends Base {
                 'label'     => __( 'Title Color', 'advanced-addons-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .advanced_addons_promo_box h5' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .advanced_addons_promo_box h5,{{WRAPPER}} .advanced_addons_callto_action h4' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -257,7 +283,7 @@ class Promo_Box extends Base {
             [
                 'name'     => 'desc_typography',
                 'label'    => __( 'Typography', 'advanced-addons-elementor' ),
-                'selector' => '{{WRAPPER}} .advanced_addons_promo_box p',
+                'selector' => '{{WRAPPER}} .advanced_addons_promo_box p,{{WRAPPER}} .advanced_addons_callto_action p',
                 'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
             ]
         );
@@ -269,7 +295,7 @@ class Promo_Box extends Base {
                 'label'     => __( 'Description Text Color', 'advanced-addons-elementor' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .advanced_addons_promo_box p' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .advanced_addons_promo_box p,{{WRAPPER}} .advanced_addons_callto_action p' => 'color: {{VALUE}}',
                 ],
             ]
         );
@@ -410,7 +436,10 @@ class Promo_Box extends Base {
                                     </div>
                             </div>
                             <div class="col-md-5">
-                                <img src="assets/images/promo-box/promo-pc.jpg" class="img-fluid" alt="">
+<!--                                 <img src="assets/images/promo-box/promo-pc.jpg"  alt="">
+ -->                                <?php
+                                    echo '<img class="img-fluid" src="' . $settings['uploaded_image']['url'] . '">';
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -479,6 +508,28 @@ class Promo_Box extends Base {
                         </div>
                     </div>
                 </div>
+         <# } #> 
+          <# if (settings.style === 'style4') { #>
+         <div class="advanced_addons_callto_action type-2 promo-box text-left" >
+             <div class="row no-gutters align-items-center">
+                    <div class="col-md-7">
+                        <h4 >
+                             {{ settings.title }}
+                        </h4>
+                            <p >
+                                {{ settings.description }}
+                            </p>
+                            <div>
+                                 <a href="{{{ settings.link.url }}}" class="advanced_addons_btn advanced_addons_btn_solid btn_default btn_pill">
+                                  {{ settings.button_text }}
+                            </a>
+                            </div>
+                    </div>
+                    <div class="col-md-5">
+                        <img src=" {{ settings.uploaded_image.url}}" class="img-fluid" alt="">
+                    </div>
+                </div>
+         </div>
          <# } #> 
         <?php
     }
