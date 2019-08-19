@@ -3856,6 +3856,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .advanced_addons_tab.type-2 .advanced_addons_tab_item .tab-link:last-child {
     border-bottom-right-radius: 5px;
 }
+.advanced_addons_tab_content .block-content:not(.active){
+    display: none;
+    
+}
 /*--------------------------------------------
     // Step
 --------------------------------------------*/

@@ -62,6 +62,23 @@ class Alert extends Base {
 			]
 		);
 
+		// Visual Style
+        $this->add_control(
+            'style',
+            [
+                'label'   => __( 'Visual Style', 'advanced-addons-elementor' ),
+                'type'    => Controls_Manager::SELECT,
+                'default' => 'style1',
+                'options' => [
+                    'style1' => __( 'Alert Bordered', 'advanced-addons-elementor' ),
+                    'style2' => __( 'Alert Gradient', 'advanced-addons-elementor' ),
+                    'style3' => __( 'Alert Capsul Gradient', 'advanced-addons-elementor' ),
+                    'style4' => __( 'Alert Underline', 'advanced-addons-elementor' ),
+                    
+                ],
+            ]
+        );
+
         $this->add_control(
 			'alert_type',
 			[
@@ -110,6 +127,7 @@ class Alert extends Base {
         );
         
         
+        
         $this->end_controls_section();
     }
 
@@ -145,35 +163,135 @@ class Alert extends Base {
 
 	protected function render() {
         $settings = $this->get_settings_for_display();
-        if ( ! empty( $settings['alert_type'] ) ) {
-			$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_alert advanced_addons_primary advanced_addons_alert_bordered mb-2 advanced_addons_' . $settings['alert_type'] );
-		}
-        ?>
-          <div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
-				<span>
-					<i class="<?php echo esc_attr( $settings['icon'] ); ?>"></i>
-				</span>
-				<p>
-					<strong><?php echo esc_html($settings['pre_title']); ?></strong>
-					<?php echo esc_html($settings['alert_title']); ?>
-				</p>
-			</div> 
+         ?>
+        <?php if($settings['style'] === 'style1'):?>
+                <?php 
+					 if ( ! empty( $settings['alert_type'] ) ) {
+						$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_alert advanced_addons_primary advanced_addons_alert_bordered mb-2 advanced_addons_' . $settings['alert_type'] );
+					}
+                ?>
+
+            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+					<span>
+						<i class="<?php echo esc_attr( $settings['icon'] ); ?>"></i>
+					</span>
+					<p>
+						<strong><?php echo esc_html($settings['pre_title']); ?></strong>
+						<?php echo esc_html($settings['alert_title']); ?>
+					</p>
+				</div> 
+            <?php endif;?>
+            <?php if($settings['style'] === 'style2'):?>
+            	<div class="advanced_addons_alert_area pb-60 pt-60 bg-fafafa">
+            		<?php 
+					 if ( ! empty( $settings['alert_type'] ) ) {
+						$this->add_render_attribute( 'wrapper', 'class', ' advanced_addons_alert advanced_addons_alert_grad mb-2 advanced_addons_' . $settings['alert_type'] );
+					}
+                ?>
+
+            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+					<span>
+						<i class="<?php echo esc_attr( $settings['icon'] ); ?>"></i>
+					</span>
+					<p>
+						<strong><?php echo esc_html($settings['pre_title']); ?></strong>
+						<?php echo esc_html($settings['alert_title']); ?>
+					</p>
+				</div> 
+            	</div>
+            <?php endif;?>
+             <?php if($settings['style'] === 'style3'):?>
+            	<?php 
+					 if ( ! empty( $settings['alert_type'] ) ) {
+						$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_alert advanced_addons_alert_grad capsul mb-2   advanced_addons_' . $settings['alert_type'] );
+					}
+                ?>
+
+            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+            		<span>
+							<i class="<?php echo esc_attr( $settings['icon'] ); ?>"></i>
+							<strong><?php echo esc_html($settings['pre_title']); ?></strong>
+						</span>
+					<p>
+						<?php echo esc_html($settings['alert_title']); ?>
+					</p>
+				</div> 
+            <?php endif;?>
+             <?php if($settings['style'] === 'style4'):?>
+             	<div class="advanced_addons_alert_area pb-60 pt-60" data-color="faffff" >
+             		<?php 
+					 if ( ! empty( $settings['alert_type'] ) ) {
+						$this->add_render_attribute( 'wrapper', 'class', 'advanced_addons_alert   advanced_addons_alert_underlined  mb-2 advanced_addons_' . $settings['alert_type'] );
+					}
+                ?>
+
+	            	<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+	            		<span>
+								<i class="<?php echo esc_attr( $settings['icon'] ); ?>"></i>
+							</span>
+						<p>
+							<strong><?php echo esc_html($settings['pre_title']); ?></strong>
+							<?php echo esc_html($settings['alert_title']); ?>
+						</p>
+					</div> 
+             	</div>
+            	
+            <?php endif;?>
         <?php
     }
 
     public function _content_template() {
 
         ?>
-        <div class="advanced_addons_alert advanced_addons_{{ settings.alert_type }} advanced_addons_alert_bordered mb-2">
+        <# if (settings.style === 'style1') { #>
+         <div class="advanced_addons_alert advanced_addons_{{ settings.alert_type }} advanced_addons_alert_bordered mb-2">
 				<span>
-					<i class="{{{settings.icon}}}"></i>
+					<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 				</span>
 				<p>
 					<strong>{{ settings.pre_title }}</strong>
 					{{ settings.alert_title }}
 				</p>
 		</div> 
-
+         <# } #>
+         <# if (settings.style === 'style2') { #>
+         <div class="advanced_addons_alert_area pb-60 pt-60 bg-fafafa">
+         	<div class="advanced_addons_alert advanced_addons_{{ settings.alert_type }} advanced_addons_alert_grad mb-2">
+         		<span>
+					<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+				</span>
+					<p>
+					<strong>{{ settings.pre_title }}</strong>
+					{{ settings.alert_title }}
+				</p>
+         	</div>
+        	</div>
+         <# } #>
+         <# if (settings.style === 'style3') { #>
+         <div class="advanced_addons_alert advanced_addons_{{ settings.alert_type }}  advanced_addons_alert_grad capsul mb-2">
+         		<span>
+							<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+							<strong>{{ settings.pre_title }}</strong>
+						</span>
+					<p>
+						{{ settings.alert_title }}
+					</p>
+         	</div>
+         <# } #>
+          <# if (settings.style === 'style4') { #>
+         <div class="advanced_addons_alert_area pb-60 pt-60" data-color="faffff">
+         	<div class="advanced_addons_alert advanced_addons_{{ settings.alert_type }} advanced_addons_alert_underlined  mb-2">
+         		<span>
+							<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+							
+						</span>
+					<p>
+						<strong>{{ settings.pre_title }}</strong>
+						{{ settings.alert_title }}
+					</p>
+         	</div>
+         </div>
+         <# } #>
         <?php
     }
 }

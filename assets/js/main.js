@@ -9,7 +9,8 @@
 
 
 // alert(window.innerHeight)
-(function(jQuery) {
+(function($) {
+    'use strict';
     
     jQuery.fn.hasAttr = function(name) {  
        return this.attr(name) !== undefined && this.attr(name) !== '';
@@ -163,12 +164,10 @@
         jQuery(this).removeAttr('data-bg');
 
     });
-
     //Advanced Blocks Tab Item
-
-    (function(){
+   jQuery(document).on('ready',function($) {
         jQuery(".advanced_addons_tab_content .block-content:not('.active')").hide()
-        jQuery('.advanced_addons_tab_item .tab-link').on('click',function(e){
+        jQuery(document).on('click','.advanced_addons_tab_item  .tab-link',function(e){
             let __this ,result,shower;
             __this= jQuery(this);
             e.preventDefault()
@@ -179,12 +178,14 @@
             console.log(result)
             jQuery(".advanced_addons_tab_content").find(`[id='jQuery{result}']`).show();
             console.log(jQuery('.advanced_addons_tab_content .block-content[id*=' + result + ']'))
-            shower = jQuery(".advanced_addons_tab_content").find(`[id='jQuery{result}']`).show();
-            shower = jQuery(".advanced_addons_tab_content").find(`[id='jQuery{result}']`).addClass('active');
+            //shower = jQuery('.advanced_addons_tab_content .block-content[id*=' + result + ']').show();
+            shower = jQuery('.advanced_addons_tab_content .block-content[id*=' + result + ']').show();
+            //shower = jQuery('.advanced_addons_tab_content .block-content[id*=' + result + ']').addClass('active');
+            shower = jQuery('.advanced_addons_tab_content .block-content[id*=' + result + ']').addClass('active');
             shower.siblings().hide();
             shower.siblings().removeClass('active');
         });
-    })()
+    });
 
     jQuery('.blocks-step').each(function () {
         var pdiv = jQuery(this);
@@ -297,10 +298,6 @@
 
         });
 
-
-
-
-
         // Radius Circle
     //     (function (jQuery){
 
@@ -373,4 +370,3 @@
     })
 
 })(jQuery);
-

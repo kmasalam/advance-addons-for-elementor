@@ -44,6 +44,7 @@ class Widgets {
             'image-compare',
             'clients',
             'notice',
+            'tabs',
 
         ];
 
