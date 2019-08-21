@@ -104,7 +104,7 @@ class Tabs extends Base {
             ]
         );
         $this->add_control(
-            'tab_layout',
+            'style',
             [
                 'label'   => esc_html__( 'Layout', 'bdthemes-element-pack' ),
                 'type'    => Controls_Manager::SELECT,
@@ -154,17 +154,17 @@ class Tabs extends Base {
                 'title_field' => '<# print(title.slice(0,1).toUpperCase() + title.slice(1)) #>',
                 'default'     => [
                     [
-						'desc' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
+						'desc' => 'Tab1 Content dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
 						
 						'title' => 'Tab1',
                     ],
                     [
-						'desc' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
+						'desc' => 'Tab2 Content is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
 						
 						'title' => 'Tab2',
                     ],
                     [
-						'desc' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
+						'desc' => 'Tab3 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
 						
 						'title' => 'Tab3',
                     ]
@@ -276,7 +276,7 @@ class Tabs extends Base {
                     <div class="col-md-10 offset-md-1">
                         <div class="row no-gutters">
                             <div class="col-md-8 offset-md-2">
-                                <div class="advanced_addons_tab_item row no-gutters type-1 d-flex align-items-center">
+                                <div class="advanced_addons_tab_item row no-gutters set-bg type-1 d-flex align-items-center">
                                     
                                     <?php
                                     $i= 1;

@@ -193,7 +193,7 @@ class Promo_Box extends Base {
                     'url' => Utils::get_placeholder_image_src(),
                 ],
                 'condition'   => [
-                    'style' => [ 'style4'],
+                    'style' => [ 'style3','style4'],
                 ],
             ]
         );
@@ -398,7 +398,7 @@ class Promo_Box extends Base {
                     </div>
             <?php endif;?>
              <?php if($settings['style'] === 'style3'):?>
-                <div class="pt-100 pb-100  position-relative advanced_addons_callto_action_area type-2" >
+                <div class="pt-100 pb-100  position-relative advanced_addons_callto_action_area type-2 set-bg" data-bg='<?php echo $settings['uploaded_image']['url']?>'>
                     <div class="overlay position-absolute"></div>
                     <div class="advanced_addons_callto_action type-2 text-center position-relative ">
                         <h4 class="text-white">
@@ -489,7 +489,7 @@ class Promo_Box extends Base {
                     </div>
          <# } #> 
          <# if (settings.style === 'style3') { #>
-         <div class="pt-100 pb-100 position-relative advanced_addons_callto_action_area type-2" >
+         <div class="pt-100 pb-100 position-relative advanced_addons_callto_action_area type-2 set-bg" data-bg="{{ settings.uploaded_image.url}}" >
             <div class="overlay position-absolute"></div>
                     <div class="advanced_addons_callto_action type-2 text-center position-relative ">
                         <h4 class="text-white">

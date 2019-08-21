@@ -43,6 +43,7 @@ class Widgets {
             'dual-button',
             'image-compare',
             'clients',
+            'funfactors',
             'notice',
             'tabs',
 
